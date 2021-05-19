@@ -1,0 +1,24 @@
+# VCC-> RPI pin 1 power
+# GND->RPI pin 6 ground
+# DO-> RPI pin 7 signal
+
+import time, sys
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(7, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
+def action(pin):
+    print ('** CO DETECTED! **')
+    return
+
+GPIO.add_event_detect(7, GPIO.RISING)
+GPIO.add_event_callback(7, action)
+
+try:
+    while True:
+        print ('Sensor Activ')
+        time.sleep(1.0)
+except KeyboardInterrupt:
+    GPIO.cleanup()
+    sys.exit()
